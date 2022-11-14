@@ -1,6 +1,7 @@
 import styles from "./Register.module.css";
 
 import { useState, useEffect } from "react";
+import { useAuthentification } from "../../hooks/useAuthentication";
 
 const Register = () => {
   const [displayName, setDsplayName] = useState("");
@@ -10,7 +11,10 @@ const Register = () => {
 
   const [error, setError] = useState("");
 
-  const handleSubmit = (e) => {
+  // desempacota os dados do Hook 
+  const { createUser, error: authError, loading } = useAuthentification();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Limpa os error após o submit
@@ -29,8 +33,15 @@ const Register = () => {
       return;
     }
 
-    console.log(user);
+    const res = await createUser(user);
   };
+
+  // Monitora a váriavel authErro, para verificar se vêm algum erro do Backend
+  useEffect(() => {
+    if (authError) {
+      setError(authError);
+    }
+  }, [authError]);
 
   return (
     <div className={styles.register}>
@@ -81,7 +92,13 @@ const Register = () => {
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
         </label>
-        <button className="btn">Cadastrar</button>
+        {!loading ? (
+          <button className="btn">Cadastrar</button>
+        ) : (
+          <button className="btn" disabled>
+            Aguarde...
+          </button>
+        )}
         {error ? <p className="error">{error}</p> : null}
       </form>
     </div>
