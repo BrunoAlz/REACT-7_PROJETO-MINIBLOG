@@ -1,7 +1,7 @@
 import styles from "./Register.module.css";
 
 import { useState, useEffect } from "react";
-import { useAuthentification } from "../../hooks/useAuthentication";
+import { useAuthentication } from "../../hooks/useAuthentication";
 
 const Register = () => {
   const [displayName, setDsplayName] = useState("");
@@ -12,7 +12,7 @@ const Register = () => {
   const [error, setError] = useState("");
 
   // desempacota os dados do Hook 
-  const { createUser, error: authError, loading } = useAuthentification();
+  const { createUser, error: authError, loading } = useAuthentication();
 
   const handleSubmit = async (e) => {
     e.preventDefault();

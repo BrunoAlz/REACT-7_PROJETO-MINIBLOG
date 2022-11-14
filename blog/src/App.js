@@ -5,7 +5,7 @@ import { onAuthStateChanged } from "firebase/auth";
 
 // Hooks
 import { useState, useEffect } from "react";
-import { useAuthentification } from "./hooks/useAuthentication";
+import { useAuthentication } from "./hooks/useAuthentication";
 
 // Contextos
 import { AuthProvider } from "./context/AuthContext";
@@ -24,7 +24,7 @@ import Footer from "./components/Footer";
 
 function App() {
   const [user, setUser] = useState(undefined);
-  const { auth } = useAuthentification();
+  const { auth } = useAuthentication();
 
   const loadingUser = user === undefined;
 
