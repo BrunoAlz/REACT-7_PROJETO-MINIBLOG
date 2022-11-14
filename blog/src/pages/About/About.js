@@ -1,9 +1,19 @@
 import styles from "./About.module.css";
+import { Link } from "react-router-dom";
 
 const About = () => {
   return (
-    <div>
-      <h1>Home</h1>
+    <div className={styles.about}>
+      <h2>
+        Sobre o Mini <span>Blog</span>        
+      </h2>
+      <p>
+          Este projeto de Blog, foi feito com REACT.JS no Front-End e Firebase
+          no Back-End
+        </p>
+        <Link to="/posts/create" className="btn">
+          Criar Post
+        </Link>
     </div>
   );
 };
