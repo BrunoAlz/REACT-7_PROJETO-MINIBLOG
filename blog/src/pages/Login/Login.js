@@ -9,7 +9,7 @@ const Login = () => {
   const [error, setError] = useState("");
 
   // desempacota os dados do Hook
-  const { createUser, error: authError, loading } = useAuthentication();
+  const { login, error: authError, loading } = useAuthentication();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,6 +22,8 @@ const Login = () => {
       email,
       password,
     };
+
+    const res = await login(user)
 
   };
 
@@ -63,7 +65,7 @@ const Login = () => {
           <button className="btn">Entrar</button>
         ) : (
           <button className="btn" disabled>
-            Autenticando...
+            Aguarde...
           </button>
         )}
         {error ? <p className="error">{error}</p> : null}
