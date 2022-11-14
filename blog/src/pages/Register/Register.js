@@ -3,11 +3,40 @@ import styles from "./Register.module.css";
 import { useState, useEffect } from "react";
 
 const Register = () => {
+  const [displayName, setDsplayName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const [error, setError] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Limpa os error após o submit
+    setError("");
+
+    // cria um objeto user com os dados do form
+    const user = {
+      displayName,
+      email,
+      password,
+    };
+
+    // Valida se as senhas são iguais
+    if (password !== confirmPassword) {
+      setError("As senhas precisão ser iguais!");
+      return;
+    }
+
+    console.log(user);
+  };
+
   return (
-    <div>
+    <div className={styles.register}>
       <h1>Cadastre-se para postar!</h1>
       <p>Crie seu usuário e compartilhe suas Histórias!</p>
-      <form>
+      <form onSubmit={handleSubmit}>
         <label>
           <span>Nome:</span>
           <input
@@ -15,6 +44,8 @@ const Register = () => {
             name="displayName"
             required
             placeholder="Nome do usuário"
+            value={displayName}
+            onChange={(e) => setDsplayName(e.target.value)}
           />
         </label>
         <label>
@@ -24,6 +55,8 @@ const Register = () => {
             name="email"
             required
             placeholder="E-mail do usuário"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </label>
         <label>
@@ -33,6 +66,8 @@ const Register = () => {
             name="password"
             required
             placeholder="Insira sua Senha"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </label>
         <label>
@@ -42,9 +77,12 @@ const Register = () => {
             name="confirmPassword"
             required
             placeholder="Confirme sua Senha"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
           />
         </label>
         <button className="btn">Cadastrar</button>
+        {error ? <p className="error">{error}</p> : null}
       </form>
     </div>
   );
