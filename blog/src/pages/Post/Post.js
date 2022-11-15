@@ -1,0 +1,17 @@
+import { styles } from "../Post/Post.module.css";
+
+import { useParams } from "react-router-dom";
+
+const Post = () => {
+
+  const {id} = useParams()
+
+  return (
+    <div>
+      <h1>Post</h1>
+      <p>id: {id}</p>
+    </div>
+  );
+};
+
+export default Post;
