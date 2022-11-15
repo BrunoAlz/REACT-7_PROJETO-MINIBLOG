@@ -1,8 +1,9 @@
 import styles from "./CreatePost.module.css";
 
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { useAuthValue } from "../../context/AuthContext";
+import { useInsertDocument } from "../../hooks/useInsertDocument";
 
 const CreatePost = () => {
   const [title, setTitle] = useState("");
@@ -11,8 +12,30 @@ const CreatePost = () => {
   const [tags, setTags] = useState([]);
   const [formError, setFormError] = useState("");
 
+  const { insertDocument, response } = useInsertDocument("posts");
+  const { user } = useAuthValue();
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    setFormError("");
+
+    // Valida a URL da Imagem
+
+    // Cria o Array de TAGS
+
+    // Check todos os valores
+
+    // Inserir dados no Firebase
+    insertDocument({
+      title,
+      image,
+      body,
+      tags,
+      uid: user.uid,
+      createdBy: user.displayName,
+    });
+
+    // redirect para home page
   };
 
   return (
@@ -66,17 +89,14 @@ const CreatePost = () => {
             value={tags}
           />
         </label>
-        {/* {!loading ? (
+        {!response.loading ? (
           <button className="btn">Cadastrar</button>
         ) : (
           <button className="btn" disabled>
             Aguarde...
           </button>
         )}
-        {error ? <p className="error">{error}</p> : null} */}
-        <button className="btn">
-          Cadastrar
-        </button>
+        {response.error ? <p className="error">{response.error}</p> : null}
       </form>
     </div>
   );
