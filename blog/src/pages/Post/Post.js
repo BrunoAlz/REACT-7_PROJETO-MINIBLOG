@@ -1,15 +1,20 @@
 import { styles } from "../Post/Post.module.css";
 
 import { useParams } from "react-router-dom";
+import { useFetchDocument } from "../../hooks/useFetchDocument";
 
 const Post = () => {
 
   const {id} = useParams()
+  const {document: post} = useFetchDocument("posts", id)
 
   return (
     <div>
-      <h1>Post</h1>
-      <p>id: {id}</p>
+      {post ? 
+      <>
+      <h1>{post.title}</h1>
+      </>
+      : null}
     </div>
   );
 };
