@@ -35,7 +35,6 @@ export const useFetchDocuments = (docCollection, search = null, uid = null) => {
               ...doc.data(),
             }))
           );
-          console.log(querySnapshot);
         });
 
         setLoading(false);
