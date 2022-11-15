@@ -20,10 +20,17 @@ const CreatePost = () => {
     setFormError("");
 
     // Valida a URL da Imagem
+    try {
+      new URL(image);
+    } catch (error) {
+      setFormError("A Imagem não possui uma URL Válida!");
+    }
 
     // Cria o Array de TAGS
 
     // Check todos os valores
+
+    if (formError) return;
 
     // Inserir dados no Firebase
     insertDocument({
@@ -58,7 +65,7 @@ const CreatePost = () => {
           />
         </label>
         <label>
-          <span>Insira a URL ad Imagem</span>
+          <span>Insira a URL da Imagem</span>
           <input
             type="text"
             name="image"
@@ -97,6 +104,7 @@ const CreatePost = () => {
           </button>
         )}
         {response.error ? <p className="error">{response.error}</p> : null}
+        {formError ? <p className="error">{formError}</p> : null}
       </form>
     </div>
   );
