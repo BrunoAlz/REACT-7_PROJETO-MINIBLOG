@@ -1,20 +1,29 @@
-import { styles } from "../Post/Post.module.css";
-
 import { useParams } from "react-router-dom";
 import { useFetchDocument } from "../../hooks/useFetchDocument";
+import styles from "./Post.module.css";
 
 const Post = () => {
-
-  const {id} = useParams()
-  const {document: post} = useFetchDocument("posts", id)
+  const { id } = useParams();
+  const { document: post, loading } = useFetchDocument("posts", id);
 
   return (
-    <div>
-      {post ? 
-      <>
-      <h1>{post.title}</h1>
-      </>
-      : null}
+    <div className={styles.post_container}>
+      {loading && <p>Carregando posts...</p>}
+      {post && (
+        <>
+          <h1>{post.title}</h1>
+          <img src={post.image} alt={post.title} />
+          <p>{post.body}</p>
+          <h3>Este post trata sobre:</h3>
+          <div className={styles.tags}>
+            {post.tagsArray.map((tag) => (
+              <p key={tag}>
+                <span>#{tag}</span>
+              </p>
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 };

@@ -11,13 +11,13 @@ export const useFetchDocument = (docCollection, id) => {
   const [cancelled, setCancelled] = useState(false);
 
   useEffect(() => {
-    const loadDocument = async () => {
+    async function loadDocument() {
       if (cancelled) return;
 
       setLoading(true);
 
       try {
-        const docRef = await doc(db, docCollection);
+        const docRef = doc(db, docCollection, id);
 
         const docSnap = await getDoc(docRef);
 
@@ -29,7 +29,7 @@ export const useFetchDocument = (docCollection, id) => {
 
         setLoading(false);
       }
-    };
+    }
     loadDocument();
   }, [docCollection, id, cancelled]);
 
